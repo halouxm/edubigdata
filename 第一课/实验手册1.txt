@@ -1,0 +1,105 @@
+课程
+	名称：教育大数据分析系统综合实践
+	地址：综合教学楼3号楼，316
+	git地址
+	https://github.com/halouxm/edubigdata
+课程1：
+	VMware已正确安装
+	安装环境
+	一、安装Centos7系统 【系统30G,内存4G,CPU2核】
+		下载地址：https://mirrors.huaweicloud.com/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-2009.iso
+		1、刚装机需要配置sudo权限
+			切换root用户
+			su root
+		2、配置sudo权限
+			visudo
+			root2    ALL=(ALL)       ALL
+		3、配置镜像源
+			CentOS 7 系统在 2024 年 6 月 30 日结束了官方维护，这意味着：
+			官方提供的 mirrorlist.centos.org 等源地址已经停止服务，无法解析或获取软件包。
+			你的系统里原来的 yum 源配置文件（CentOS-Base.repo）指向的是这些失效地址，所以执行 yum update、yum install 等命令时会报错。
+			
+			1)#备份备份原有 yum 源配置
+			# 创建备份目录
+				mkdir -p /etc/yum.repos.d/bak
+				mv /etc/yum.repos.d/*.repo /etc/yum.repos.d/bak/
+			2)#替换为可用的 yum 源
+			wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
+
+			3)清理并重建 yum 缓存	(等待清理并重建大概1分钟)
+				yum clean all
+				yum makecache
+			4)测试 yum 功能	(大概10分钟)
+				yum update -y
+			5)重启
+				reboot
+	二、安装JDK1.8
+		1.安装
+			方法1：
+				sudo yum install java-1.8.0-openjdk
+				sudo yum install java-1.8.0-openjdk-devel.x86_64
+				#########sudo yum remove java-1.8.0-openjdk
+				
+
+			方法2：手动安装
+			sudo mkdir -p /usr/lib/jvm/java-8-openjdk
+			sudo tar -zxvf jdk-8u212-linux-x64.tar.gz -C /usr/lib/jvm
+			验证jdk安装成功
+			java -version
+			javac
+
+		2、设置JAVA环境变量
+		查找jdk的安装路径
+		dirname $(readlink -f $(which java))
+		输出：/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.412.b08-1.el7_9.x86_64/jre/bin
+				
+
+		#设置环境变量
+		sudo vi /etc/profile
+		输入 i插入
+#JAVA配置
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.412.b08-1.el7_9.x86_64
+JRE_HOME=$JAVA_HOME/jre
+CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib 
+PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+export JAVA_HOME JRE_HOME CLASS_PATH PATH
+		输入:wq
+		#刷新
+		source /etc/profile
+	
+		#测试JAVA_HOME
+		echo $JAVA_HOME
+	三、固定虚拟机ip
+		ip a
+		sudo vi /etc/sysconfig/network-scripts/ifcfg-ens33
+# 改为静态 IP
+BOOTPROTO=static
+# 开机自动启用
+ONBOOT=yes
+# 自定义固定 IP（需与网关同网段）  
+IPADDR=192.168.38.134 #192.168.x.x  
+NETMASK=255.255.255.0
+# NAT 模式下通常为 x.2；桥接模式下为路由器 IP
+GATEWAY=192.168.x.2 
+# 可选 DNS
+DNS1=8.8.8.8        
+	
+	
+	
+	四、停用防火墙
+		systemctl stop firewalld & systemctl disable firewalld
+
+	五、时间同步
+		timedatectl set-timezone Asia/Shanghai
+		timedatectl
+
+	六、设置目录权限---------重要
+		sudo chown -R root2:root2 /opt/
+		查看更新效果ls -l /opt
+	七、安装	Shell工具
+		FinalShell或XShell
+		https://dl.hostbuf.com/finalshell3/finalshell_windows_x64.exe
+	八、使用Shell工具输入Ip用户名密码测试连接
+		#测试
+		yum --version
+		reboot
