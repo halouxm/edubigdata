@@ -3,3 +3,7 @@
 3、配置JAVA_HOME变量
 4、固定ip
 5、Shell工具连接
+
+------------------------------------------------------------
+下节课准备好mysql安装包到学生自己的电脑上
+下载地址：https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.45-1.el7.x86_64.rpm-bundle.tar
