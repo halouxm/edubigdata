@@ -1,5 +1,5 @@
 1、安装Vmware Workstation 17 pro
-2、安装CentOS7系统
+2、安装CentOS7系统  初始化为学生用户名全拼或简拼+学号后2位
 3、配置JAVA_HOME变量
 4、固定ip
 5、Shell工具连接

@@ -6,7 +6,7 @@
 课程1：
 	VMware已正确安装
 	安装环境
-	一、安装Centos7系统 【系统30G,内存4G,CPU2核】
+	一、安装Centos7系统 【系统30G,内存4G,CPU2核】 初始化为学生用户名全拼或简拼+学号后2位
 		下载地址：https://mirrors.huaweicloud.com/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-2009.iso
 		1、刚装机需要配置sudo权限
 			切换root用户
